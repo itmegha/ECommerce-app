@@ -34,11 +34,13 @@ public class SpringConfig {
 	        			"/product/availBCat",
 	        			"/product/searchBTitle",
 	        			"/product/product/{pid}",
-	        			"/user/logout"
+	        			"/user/logout",
+	        			"/product/search"
+	        			
 	        			).permitAll()
 	        	.requestMatchers("/product/addtocart","/product/create-order",
 	        			"/product/deleteItem/{id}","/product/deleteCart/{userId}",
-	        			"/product/showCart").hasRole("USER")
+	        			"/product/showCart","/product/track").hasRole("USER")
 	        	.requestMatchers("/product/savep",
 	        			"/product/availp",
 	        			"/product/delete/{id}",

@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.daos.ChatService1;
+
 import com.example.demo.entities.Cart;
 import com.example.demo.entities.Product;
 import com.example.demo.entities.Total;
 import com.example.demo.helpers.HelperC;
 import com.example.demo.services.Cartser;
+import com.example.demo.services.OrderServiceai1;
 import com.example.demo.services.ProductSer;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
@@ -39,6 +42,12 @@ public class ProductsController {
 	
 	@Autowired
 	private Cartser cser;
+	
+	@Autowired
+	private ChatService1 chatservice1;
+	
+	@Autowired
+	private OrderServiceai1 oser;
 	
 	@PostMapping("/savep")
 	public ResponseEntity<?> saveProduct(@RequestBody Product p) {
@@ -286,6 +295,17 @@ public class ProductsController {
 
 	     return "Cart cleared";
 	 }
+	 
+	 
+	  @PostMapping("/search")
+	    public String search(@RequestBody Map<String, String> req) {
+	        return chatservice1.getAIResponse(req.get("query"));
+	    }
+	  
+	  @PostMapping("/track")
+	    public String track(@RequestBody Map<String, String> req) {
+	        return oser.getOrderResponse(req.get("query"));
+	    }
 	
 
 }

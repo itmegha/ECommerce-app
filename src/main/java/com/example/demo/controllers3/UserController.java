@@ -97,19 +97,14 @@ public class UserController {
     }
 	
 	@PostMapping("/login")
-	public AuthRes userlogin(@RequestBody User u) {
+	public String userlogin(@RequestBody User u) {
    	 authManager.authenticate(
         new UsernamePasswordAuthenticationToken(
                 u.getUsername(),
                 u.getPassword()
             )
         );
-   	   
-     User dbUser = seru.findUser(u.getUsername());
-
-     String token = jwtService.generateToken(dbUser.getUsername(), dbUser.getRole());
-
-     return new AuthRes(token, dbUser);
+   	 return jwtService.generateToken(u.getUsername(),u.getRole());
 
    
 	}
